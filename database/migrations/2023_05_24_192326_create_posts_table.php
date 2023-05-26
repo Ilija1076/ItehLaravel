@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->text('content');
             $table->timestamps();
+            $table->integer('comments_count')->default(0);
         });
     }
 
