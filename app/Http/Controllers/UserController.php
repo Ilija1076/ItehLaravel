@@ -25,8 +25,8 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
-    {    $user_id = $user->id; 
+    public function show($user_id)
+    {
         $user = User::find($user_id);
         if (is_null($user))
             return response()->json('Data not found', 404);

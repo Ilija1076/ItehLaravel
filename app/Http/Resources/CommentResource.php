@@ -12,8 +12,15 @@ class CommentResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    public static $wrap = 'comments';
+
     public function toArray($request)
-    {
-        return parent::toArray($request);
-    }
+    {return $this->resource->map(function ($comment) {
+        return [
+            'id' => $comment->id,
+            'text' => $comment->text,
+            'post' => new PostResource($comment->post),
+        ];
+    });
+}
 }
