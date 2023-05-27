@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PostCollection;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +51,7 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:100',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => 'required'
+            'content' => 'required',
         ]);
 
         if ($validator->fails())
@@ -61,10 +60,9 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'slug' => $request->slug,
-            'excerpt' => $request->excerpt,
-            'body' => $request->body,
-            'category_id' => $request->category_id,
+            'content' => $request->content,
             'user_id' => Auth::user()->id,
+            'comments_count' =>0
         ]);
 
         return response()->json(['Post is created successfully.', new PostResource($post)]);
@@ -74,9 +72,7 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:100',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => 'required'
+            'content' => 'required',
         ]);
 
         if ($validator->fails())
@@ -84,9 +80,7 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->slug = $request->slug;
-        $post->excerpt = $request->excerpt;
-        $post->body = $request->body;
-        $post->category_id = $request->category_id;
+        $post->content = $request->content;
 
         $post->save();
 

@@ -32,3 +32,17 @@ Route::resource('posts', PostController::class)->only(['index']);
 Route::resource('users.posts', UserPostController::class)->only(['index']);
 Route::resource('posts.comments', PostCommentController::class)->only(['index']);
 Route::resource('users.posts.comments', UserPostCommentController::class)->only(['index']);
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('posts', PostController::class)->only(['update', 'store', 'destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
