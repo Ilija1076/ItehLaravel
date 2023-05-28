@@ -9,9 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'text'
-    ];
+    protected $guarded = [];
 
     public function post(){
         return $this->belongsTo(Post::class);

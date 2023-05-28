@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
+use App\Http\Controllers\UserCommentController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\UserPostCommentController;
 use App\Http\Controllers\API\AuthController;
@@ -30,6 +31,7 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comments.ind
 Route::resource('posts', PostController::class)->only(['index']);   
 
 Route::resource('users.posts', UserPostController::class)->only(['index']);
+Route::resource('users.comments', UserCommentController::class)->only(['index']);
 Route::resource('posts.comments', PostCommentController::class)->only(['index']);
 Route::resource('users.posts.comments', UserPostCommentController::class)->only(['index']);
 
@@ -43,6 +45,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::resource('posts', PostController::class)->only(['update', 'store', 'destroy']);
+
+    Route::resource('comments', CommentController::class)->only(['update', 'store', 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });

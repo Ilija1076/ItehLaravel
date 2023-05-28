@@ -63,5 +63,23 @@ $commentCount3 = Comment::where('post_id', $post3->id)->count();
 $post3->comments_count = $commentCount2;
 $post3->save();
       //$comment = Comment::factory(10)->create();
-    }
+    
+$userCommentCount = Comment::where('user_id', $user->id)->count();
+$user->users_comments = $userCommentCount;
+$user->save();
+
+$user2CommentCount = Comment::where('user_id', $user2->id)->count();
+$user2->users_comments = $user2CommentCount;
+$user2->save();
+
+$user3CommentCount = Comment::where('user_id', $user3->id)->count();
+$user3->users_comments = $user3CommentCount;
+$user3->save();
+
+$user4CommentCount = Comment::where('user_id', $user4->id)->count();
+$user4->users_comments = $user4CommentCount;
+$user4->save();
+}
+
+
 }
