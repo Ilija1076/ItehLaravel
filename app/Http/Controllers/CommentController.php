@@ -61,7 +61,7 @@ class CommentController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Comment $comment)
     {
         $validator = Validator::make($request->all(), [
             'text' => 'required|string|max:255'
