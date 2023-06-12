@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Comment;
-use App\Models\Post;
+use App\Models\Article;
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\CommentCollection;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class CommentController extends Controller
     {  
         $validator = Validator::make($request->all(), [
             'text' => 'required|string|max:255',
-            'post_id' => 'required',
+            'article_id' => 'required',
         ]);
 
         if ($validator->fails())
@@ -42,14 +42,14 @@ class CommentController extends Controller
             
         $comment =  Comment::create([
             'text' => $request->text,
-            'user_id' => Auth::user()->id,
-            'post_id' => $request->post_id,
+            'profile_id' => Auth::profile()->id,
+            'article_id' => $request->article_id,
         ]);
 
-        $post = Post::find($request->post_id);
-        $post->comments_count += 1;
-        $post->save();
-        $comment->user->increment('users_comments');
+        $article = Article::find($request->article_id);
+        $article->comments_count += 1;
+        $article->save();
+        $comment->profile->increment('profiles_comments');
         
 
         return response()->json(['Comment is created successfully.', new CommentResource($comment)]);
@@ -58,7 +58,7 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Comment $comment)
@@ -79,7 +79,7 @@ class CommentController extends Controller
           /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Comment $comment)

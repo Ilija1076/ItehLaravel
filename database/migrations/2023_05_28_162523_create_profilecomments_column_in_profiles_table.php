@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUserIdToPostsTable extends Migration
+class CreateProfilecommentsColumnInprofilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnUserIdToPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->foreignID('user_id');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->integer('profiles_comments')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnUserIdToPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign('user_id');
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->dropColumn('profiles_comments');
         });
     }
 }

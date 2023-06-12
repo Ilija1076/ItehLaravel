@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Post;
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -15,7 +15,7 @@ class CommentFactory extends Factory
     {
         return [
             'text' => $this->faker->paragraph(),
-            'post_id'=>Post::factory(),
+            'article_id'=>Article::factory(),
         ];
     }
 }

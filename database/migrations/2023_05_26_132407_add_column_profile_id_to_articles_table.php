@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUserIdToCommentsTable extends Migration
+class AddColumnProfileIdToArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnUserIdToCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->foreignID('user_id');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->foreignID('profile_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnUserIdToCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropForeign('user_id');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropForeign('profile_id');
         });
     }
 }

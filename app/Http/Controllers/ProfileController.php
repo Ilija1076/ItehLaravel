@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
 /**
      * Display a listing of the resource.
@@ -15,22 +15,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $profiles = Profile::all();
 
-        return $users;
+        return $profiles;
     }
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show($user_id)
+    public function show($profile_id)
     {
-        $user = User::find($user_id);
-        if (is_null($user))
+        $profile = Profile::find($profile_id);
+        if (is_null($profile))
             return response()->json('Data not found', 404);
-        return response()->json($user);
+        return response()->json($profile);
     }
     /**
      * Show the form for creating a new resource.
@@ -54,10 +54,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Profile $profile)
     {
         //
     }
@@ -65,20 +65,20 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Profile $profile)
     {
         //
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(profile $profile)
     {
         //
     }

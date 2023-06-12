@@ -2,13 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserPostController;
-use App\Http\Controllers\UserCommentController;
-use App\Http\Controllers\PostCommentController;
-use App\Http\Controllers\UserPostCommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileArticleController;
+use App\Http\Controllers\ProfileCommentController;
+use App\Http\Controllers\ArticleCommentController;
+use App\Http\Controllers\ProfileArticleCommentController;
 use App\Http\Controllers\API\AuthController;
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +21,19 @@ use App\Http\Controllers\API\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
+    return $request->profile();
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
+Route::get('/profiles/{id}', [ProfileController::class, 'show'])->name('profiles.show');
 Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
-Route::resource('posts', PostController::class)->only(['index']);   
+Route::resource('articles', ArticleController::class)->only(['index']);   
 
-Route::resource('users.posts', UserPostController::class)->only(['index']);
-Route::resource('users.comments', UserCommentController::class)->only(['index']);
-Route::resource('posts.comments', PostCommentController::class)->only(['index']);
-Route::resource('users.posts.comments', UserPostCommentController::class)->only(['index']);
+Route::resource('profiles.articles', ProfileArticleController::class)->only(['index']);
+Route::resource('profiles.comments', ProfileCommentController::class)->only(['index']);
+Route::resource('articles.comments', ArticleCommentController::class)->only(['index']);
+Route::resource('profiles.articles.comments', ProfileArticleCommentController::class)->only(['index']);
 
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -41,10 +41,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function (Request $request) {
-        return auth()->user();
+        return auth()->profile();
     });
 
-    Route::resource('posts', PostController::class)->only(['update', 'store', 'destroy']);
+    Route::resource('articles', ArticleController::class)->only(['update', 'store', 'destroy']);
 
     Route::resource('comments', CommentController::class)->only(['update', 'store', 'destroy']);
 

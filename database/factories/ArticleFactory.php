@@ -1,12 +1,12 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\User;
+use App\Models\Profile;
 use App\Models\Comment;
-use App\Models\Post;
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+class ArticleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,7 @@ class PostFactory extends Factory
             'title'=>$this->faker->sentence(),
             'slug'=>$this->faker->slug(),
             'content'=>$this->faker->paragraph(),
-            'user_id'=>User::factory(),
+            'profile_id'=>Profile::factory(),
         ];
     }
 }

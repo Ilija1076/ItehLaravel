@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use App\Models\Profile;
 
 class AuthController extends Controller
 {   
@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255|email|unique:users',
+            'email' => 'required|string|max:255|email|unique:profiles',
             'password' => 'required|string|min:8'
         ]);
 
@@ -23,15 +23,15 @@ class AuthController extends Controller
         if ($validator->fails())
             return response()->json($validator->errors());
 
-        $user = User::create([
+        $profile = Profile::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $profile->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['data' => $profile, 'access_token' => $token, 'token_type' => 'Bearer']);
     }
 
     public function login(Request $request)
@@ -41,17 +41,17 @@ class AuthController extends Controller
                 ->json(['message' => 'Unauthorized'], 401);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        $profile = Profile::where('email', $request['email'])->firstOrFail();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $profile->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['message' => 'Hi ' . $user->name . ', welcome back!', 'access_token' => $token, 'token_type' => 'Bearer',]);
+            ->json(['message' => 'Hi ' . $profile->name . ', welcome back!', 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        auth()->profile()->tokens()->delete();
         return [
             'message' => 'You have successfully logged out, goodbye!'
         ];

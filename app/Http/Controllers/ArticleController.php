@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PostCollection;
-use App\Models\Post;
+use App\Http\Resources\articleCollection;
+use App\Models\Article;
 use App\Models\Comment;
-use App\Http\Resources\PostResource;
+use App\Http\Resources\articleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
-class PostController extends Controller
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $articles = Article::all();
 
-        return new PostCollection($posts);
+        return new ArticleCollection($articles);
     }
      /**
      * Show the form for creating a new resource.
@@ -38,7 +38,7 @@ class PostController extends Controller
    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -57,17 +57,17 @@ class PostController extends Controller
         if ($validator->fails())
             return response()->json($validator->errors());
 
-        $post = Post::create([
+        $article = Article::create([
             'title' => $request->title,
             'slug' => $request->slug,
             'content' => $request->content,
-            'user_id' => Auth::user()->id,
+            'profile_id' => Auth::profile()->id,
             'comments_count' =>0
         ]);
 
-        return response()->json(['Post is created successfully.', new PostResource($post)]);
+        return response()->json(['article is created successfully.', new ArticleResource($article)]);
     }
-    public function update(Request $request, Post $post)
+    public function update(Request $request, article $article)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -78,26 +78,26 @@ class PostController extends Controller
         if ($validator->fails())
             return response()->json($validator->errors());
 
-        $post->title = $request->title;
-        $post->slug = $request->slug;
-        $post->content = $request->content;
+        $article->title = $request->title;
+        $article->slug = $request->slug;
+        $article->content = $request->content;
 
-        $post->save();
+        $article->save();
 
-        return response()->json(['Post is updated successfully.', new PostResource($post)]);
+        return response()->json(['article is updated successfully.', new ArticleResource($article)]);
 
     }
           /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(article $article)
     {
-        $post->delete();
+        $article->delete();
 
-        return response()->json('Post is deleted successfully.');
+        return response()->json('Article is deleted successfully.');
     }
 }
    

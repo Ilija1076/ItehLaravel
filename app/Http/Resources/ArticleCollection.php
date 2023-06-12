@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class PostCollection extends ResourceCollection
+class ArticleCollection extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -13,7 +13,7 @@ class PostCollection extends ResourceCollection
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-     public static $wrap = 'posts';
+     public static $wrap = 'articles';
      
     public function toArray($request)
     {

@@ -19,7 +19,7 @@ class CommentResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'text' => $this->resource->text,
-            'post' =>$this->resource->post,
+            'article' =>$this->resource->article,
         ];
     }
 }

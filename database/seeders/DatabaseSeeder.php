@@ -1,8 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User;
-use App\Models\Post;
+use App\Models\Profile;
+use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Database\Seeder;
 
@@ -16,70 +16,67 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-      User::truncate();
+      Profile::truncate();
       Comment::truncate();  
-      Post::truncate();
+      Article::truncate();
       
       
-      $user = User::factory()->create();
-      $user2 = User::factory()->create();
-      $user3 = User::factory()->create();
-      $user4 = User::factory()->create();
-      $post1 = Post::factory()->create([
-        'user_id'=>$user->id,
+      $profile = Profile::factory()->create();
+      $profile2 = Profile::factory()->create();
+      $profile3 = Profile::factory()->create();
+      $profile4 = Profile::factory()->create();
+      $article1 = article::factory()->create([
+        'profile_id'=>$profile->id,
     ]);
 
-    $post2 = Post::factory()->create([
-      'user_id'=>$user2->id,
+    $article2 = Article::factory()->create([
+      'profile_id'=>$profile2->id,
   ]);
-  $post3 = Post::factory()->create([
-    'user_id'=>$user3->id,
+  $article3 = Article::factory()->create([
+    'profile_id'=>$profile3->id,
 ]);
     Comment::factory(5)->create([
-      'user_id'=>$user->id,
-      'post_id'=>$post1->id
+      'profile_id'=>$profile->id,
+      'article_id'=>$article1->id
   ]);
   Comment::factory(5)->create([
-    'user_id'=>$user2->id,
-    'post_id'=>$post1->id
+    'profile_id'=>$profile2->id,
+    'article_id'=>$article1->id
 ]);
   Comment::factory(5)->create([
-    'user_id'=>$user3->id,
-    'post_id'=>$post2->id
+    'profile_id'=>$profile3->id,
+    'article_id'=>$article2->id
 ]);
 Comment::factory(5)->create([
-  'user_id'=>$user4->id,
-  'post_id'=>$post3->id
+  'profile_id'=>$profile4->id,
+  'article_id'=>$article3->id
 ]);
-$commentCount = Comment::where('post_id', $post1->id)->count();
-$post1->comments_count = $commentCount;
-$post1->save();
+$commentCount = Comment::where('article_id', $article1->id)->count();
+$article1->comments_count = $commentCount;
+$article1->save();
 
-$commentCount2 = Comment::where('post_id', $post2->id)->count();
-$post2->comments_count = $commentCount2;
-$post2->save();
+$commentCount2 = Comment::where('article_id', $article2->id)->count();
+$article2->comments_count = $commentCount2;
+$article2->save();
 
-$commentCount3 = Comment::where('post_id', $post3->id)->count();
-$post3->comments_count = $commentCount2;
-$post3->save();
-      //$comment = Comment::factory(10)->create();
+$commentCount3 = Comment::where('article_id', $article3->id)->count();
+$article3->comments_count = $commentCount2;
+$article3->save();
     
-$userCommentCount = Comment::where('user_id', $user->id)->count();
-$user->users_comments = $userCommentCount;
-$user->save();
+$profileCommentCount = Comment::where('profile_id', $profile->id)->count();
+$profile->profiles_comments = $profileCommentCount;
+$profile->save();
 
-$user2CommentCount = Comment::where('user_id', $user2->id)->count();
-$user2->users_comments = $user2CommentCount;
-$user2->save();
+$profile2CommentCount = Comment::where('profile_id', $profile2->id)->count();
+$profile2->profiles_comments = $profile2CommentCount;
+$profile2->save();
 
-$user3CommentCount = Comment::where('user_id', $user3->id)->count();
-$user3->users_comments = $user3CommentCount;
-$user3->save();
+$profile3CommentCount = Comment::where('profile_id', $profile3->id)->count();
+$profile3->profiles_comments = $profile3CommentCount;
+$profile3->save();
 
-$user4CommentCount = Comment::where('user_id', $user4->id)->count();
-$user4->users_comments = $user4CommentCount;
-$user4->save();
+$profile4CommentCount = Comment::where('profile_id', $profile4->id)->count();
+$profile4->profiles_comments = $profile4CommentCount;
+$profile4->save();
 }
-
-
 }
