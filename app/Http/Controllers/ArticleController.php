@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Resources\articleCollection;
+use App\Models\Profile;
+use App\Http\Resources\ArticleCollection;
 use App\Models\Article;
 use App\Models\Comment;
-use App\Http\Resources\articleResource;
+use App\Http\Resources\ArticleResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -61,7 +61,7 @@ class ArticleController extends Controller
             'title' => $request->title,
             'slug' => $request->slug,
             'content' => $request->content,
-            'profile_id' => Auth::profile()->id,
+            'profile_id' => Auth::user()->id,
             'comments_count' =>0
         ]);
 

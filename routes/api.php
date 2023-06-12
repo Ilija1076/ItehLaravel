@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
@@ -22,8 +22,9 @@ use App\Http\Controllers\API\AuthController;
 */
 
 Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
-    return $request->profile();
+    return $request->user();
 });
+
 
 Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
 Route::get('/profiles/{id}', [ProfileController::class, 'show'])->name('profiles.show');
